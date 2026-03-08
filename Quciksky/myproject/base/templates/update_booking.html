@@ -1,0 +1,35 @@
+{% extends "main.html" %}
+{% block content %}
+
+<div class="booking-form">
+    <h2>✏ Update Passenger Details</h2>
+
+    <h4>Flight Information</h4>
+    <input type="text" value="{{ booking.flight.airline }} - {{ booking.flight.flight_no }}" readonly>
+    <input type="text" value="{{ booking.flight.origin }} → {{ booking.flight.destination }}" readonly>
+    <input type="text" value="{{ booking.flight.departure_date }} | {{ booking.flight.departure_time }}" readonly>
+    <input type="text" value="₹{{ booking.flight.price }}" readonly>
+
+    <h4>Passenger Details</h4>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <input type="text" name="name" value="{{ booking.passenger_name }}" required>
+        <input type="email" name="email" value="{{ booking.email }}" required>
+        <input type="text" name="phone" value="{{ booking.phone }}" required>
+        <input type="number" name="age" value="{{ booking.age }}" required>
+
+        <select name="seat_class">
+            <option {% if booking.seat_class == "Economy" %}selected{% endif %}>Economy</option>
+            <option {% if booking.seat_class == "Business" %}selected{% endif %}>Business</option>
+            <option {% if booking.seat_class == "First Class" %}selected{% endif %}>First Class</option>
+        </select>
+
+        <input type="text" name="seat_number" value="{{ booking.seat_number }}" required>
+
+        <button class="book-now-btn">Update Booking</button>
+    </form>
+</div>
+
+{% endblock %}

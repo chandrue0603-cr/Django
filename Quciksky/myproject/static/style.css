@@ -1,0 +1,260 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f6f9;
+}
+/* Top Header */
+.topbar{
+    background: linear-gradient(90deg, #007bff, #00c6ff);
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.logo {
+    color: white;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.menu a {
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.menu a:hover {
+    text-decoration: underline;
+}
+
+.search-box{
+    padding: 30px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    width: 60%;
+    margin: 40px auto;
+}
+
+
+.search-box input{
+    padding: 10px;
+    width: 250px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+.search-btn{
+    display: flex;
+    margin-top: -50px;   /* button konjam mela varum */
+    justify-content: center;
+    width: 100%;
+}
+
+.search-btn button{
+    padding: 12px 30px;
+    font-size: 16px;
+    background-color: #669ddc;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* ===== AVAILABLE FLIGHTS TITLE ===== */
+h2{
+    font-size: 24px;
+    color: #0d3c61;
+    margin-bottom: 30px;
+}
+
+/* ===== FLIGHT CARD ===== */
+.flight-card{
+    background: #ffffff;
+    width: 45%;
+    margin: 20px auto;
+    padding: 18px 25px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+    border-left: 6px solid #007bff;
+}
+
+/* LEFT PART */
+.flight-left h3{
+    color: #007bff;
+    font-size: 20px;
+    margin-bottom: 6px;
+}
+
+.flight-no{
+    font-size: 14px;
+    color: #555;
+}
+
+.flight-left p{
+    margin: 4px 0;
+    color: #333;
+    font-size: 14px;
+}
+
+/* RIGHT PART */
+.flight-right{
+    text-align: right;
+    border-left: 1px solid #eee;
+    padding-left: 25px;
+}
+
+.flight-right p{
+    margin: 4px 0;
+    font-size: 14px;
+    color: #444;
+}
+
+/* PRICE */
+.price{
+    font-size: 18px;
+    font-weight: bold;
+    color: #222;
+    margin: 10px 0;
+}
+
+/* BOOK NOW BUTTON */
+.book-now-btn{
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.book-now-btn:hover{
+    background: #218838;
+}
+
+
+/* ----------------Booking Css -da---------------- */
+.booking-form{
+    width: 50%;
+    margin: 40px auto;
+    background: #f8fbff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.booking-form h2{
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.booking-form label{
+    font-weight: 600;
+    margin-top: 10px;
+    display: block;
+}
+
+.booking-form input{
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* ===== Booking Cards ===== */
+
+.booking-card{
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.booking-left, .booking-middle, .booking-right{
+    flex: 1;
+}
+
+.booking-left h4,
+.booking-middle h4{
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.booking-left p,
+.booking-middle p,
+.booking-right p{
+    margin: 4px 0;
+    font-size: 14px;
+}
+
+.booking-right{
+    text-align: right;
+}
+
+.cancel-btn{
+    color: red;
+    font-weight: bold;
+    text-decoration: none;
+}
+.cancel-btn:hover{
+    text-decoration: underline;
+}
+
+.profile-container{
+    width: 400px;
+    margin: 80px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    text-align: center;
+}
+
+.profile-container h2{
+    margin-bottom: 20px;
+    color: #0d3c61;
+}
+
+.profile-container p{
+    font-size: 15px;
+    margin: 10px 0;
+    color: #333;
+}
+
+.profile-actions{
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.profile-btn{
+    background: #007bff;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.profile-btn:hover{
+    background: #0056b3;
+}
+
+.logout-btn{
+    background: #dc3545;
+}
+
+.logout-btn:hover{
+    background: #b02a37;
+}

@@ -1,0 +1,56 @@
+{% extends 'main.html' %}
+{% block content %}
+
+<div class="booking-form">
+    <h2>✈ Plane Ticket Booking Form</h2>
+
+    <h4>Flight Details</h4>
+
+    <label>Flight Company</label>
+    <input type="text" value="{{flight.airline}}" readonly>
+
+    <label>Flight Name</label>
+    <input type="text" value="{{flight.airline}} {{flight.flight_no}}" readonly>
+
+    <label>Flight Number</label>
+    <input type="text" value="{{flight.flight_no}}" readonly>
+
+    <label>From</label>
+    <input type="text" value="{{flight.origin}}" readonly>
+
+    <label>To</label>
+    <input type="text" value="{{flight.destination}}" readonly>
+
+    <label>Date</label>
+    <input type="text" value="{{flight.departure_date}}" readonly>
+
+    <label>Time</label>
+    <input type="text" value="{{flight.departure_time}}" readonly>
+
+    <label>Price</label>
+    <input type="text" value="₹{{flight.price}}" readonly>
+
+    <h4>Passenger Details</h4>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="phone" placeholder="Phone" required>
+        <input type="text" name="aadhar" placeholder="Aadhar Number" required>
+        <input type="number" name="age" placeholder="Age" required>
+
+        <select name="seat_class">
+            <option>Economy</option>
+            <option>Business</option>
+            <option>First Class</option>
+        </select>
+
+        <input type="text" name="seat_number" placeholder="Seat Number" required>
+
+        <button type="submit" class="book-now-btn">Confirm Booking</button>
+    </form>
+</div>
+
+{% endblock %}
