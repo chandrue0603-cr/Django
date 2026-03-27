@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Glass To-Do</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Modern Animated Background */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Glassmorphism Card */
+        #task-container {
+            width: 100%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 35px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            color: #fff;
+        }
+
+        h2 {
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* Form Styling */
+        #form-wrapper {
+            margin-bottom: 25px;
+        }
+
+        #title {
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 12px;
+            padding: 25px 15px;
+            color: #fff;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        #title::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        #title:focus {
+            background: rgba(255, 255, 255, 0.5);
+            outline: none;
+            box-shadow: none;
+            border-color: #fff;
+        }
+
+        #submit {
+            background: #fff;
+            color: #333;
+            font-weight: 700;
+            border-radius: 12px;
+            padding: 12px;
+            margin-top: 15px;
+            border: none;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        #submit:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* List Items */
+        #list-wrapper {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .task-wrapper {
+            background: rgba(255, 255, 255, 0.15);
+            margin-bottom: 12px;
+            padding: 15px 20px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+        }
+
+        .task-wrapper:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.02);
+        }
+
+        .task-title {
+            flex: 1;
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        /* Action Buttons */
+        .btn-action {
+            border: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 8px;
+            transition: 0.3s;
+        }
+
+        .edit-btn:hover { background: #23d5ab; color: #fff; }
+        .delete-btn:hover { background: #e73c7e; color: #fff; }
+
+        /* Custom Scrollbar */
+        #list-wrapper::-webkit-scrollbar { width: 5px; }
+        #list-wrapper::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 10px; }
+
+    </style>
+</head>
+<body>
+
+    <div id="task-container">
+        <h2>My Daily Tasks</h2>
+        
+        <div id="form-wrapper">
+            <form id="form">
+                <input id="title" class="form-control" placeholder="What's on your mind?" required>
+                <input id="submit" class="btn btn-block" type="submit" value="Add Task">
+            </form>
+        </div>
+
+        <div id="list-wrapper">
+            </div>
+    </div>
+
+    <script>
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                let cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    let cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        let csrftoken = getCookie('csrftoken');
+        let activeItem = null;
+
+        buildList();
+
+        function buildList() {
+            let wrapper = document.getElementById('list-wrapper');
+            wrapper.innerHTML = "";
+
+            // URL mathiruntha inga check pannikonga
+            fetch('http://127.0.0.1:8000/api/task-list/')
+                .then((resp) => resp.json())
+                .then(function(data) {
+                    for (let i in data) {
+                        let item = `
+                        <div class="task-wrapper">
+                            <span class="task-title">${data[i].title}</span>
+                            <button class="btn-action edit-btn edit">EDIT</button>
+                            <button class="btn-action delete-btn delete">DEL</button>
+                        </div>`;
+                        wrapper.innerHTML += item;
+                    }
+
+                    for (let i in data) {
+                        let editBtn = document.getElementsByClassName('edit')[i];
+                        let deleteBtn = document.getElementsByClassName('delete')[i];
+
+                        editBtn.addEventListener('click', (() => {
+                            let currentItem = data[i];
+                            return () => editItem(currentItem);
+                        })());
+
+                        deleteBtn.addEventListener('click', (() => {
+                            let currentItem = data[i];
+                            return () => deleteItem(currentItem);
+                        })());
+                    }
+                })
+                .catch(err => console.log("Error loading tasks:", err));
+        }
+
+        let form = document.getElementById('form');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            let url = 'http://127.0.0.1:8000/api/task-create/';
+            
+            if (activeItem != null) {
+                url = `http://127.0.0.1:8000/api/task-update/${activeItem.id}/`;
+                activeItem = null;
+            }
+
+            let title = document.getElementById('title').value;
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                },
+                body: JSON.stringify({ 'title': title })
+            }).then(() => {
+                buildList();
+                form.reset();
+                document.getElementById('submit').value = "Add Task";
+            });
+        });
+
+        function editItem(item) {
+            activeItem = item;
+            document.getElementById('title').value = activeItem.title;
+            document.getElementById('submit').value = "Update Task";
+            document.getElementById('title').focus();
+        }
+
+        function deleteItem(item) {
+            fetch(`http://127.0.0.1:8000/api/task-delete/${item.id}/`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                }
+            }).then(() => buildList());
+        }
+    </script>
+</body>
+</html>
