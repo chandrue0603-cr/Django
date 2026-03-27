@@ -1,0 +1,26 @@
+{% extends "main.html" %}
+{% block content %}
+
+<h2 align="center">Booking History</h2>
+
+{% for b in bookings %}
+<div class="flight-card">
+    <div>
+        <b>{{ b.passenger_name }}</b><br>
+        {{ b.flight.airline }} - {{ b.flight.flight_no }}<br>
+        {{ b.flight.origin }} → {{ b.flight.destination }}<br>
+        Seat: {{ b.seat_number }} | {{ b.seat_class }}
+    </div>
+
+    <div>
+        {{ b.flight.departure_date }}<br>
+        {{ b.flight.departure_time }}<br>
+        ₹{{ b.flight.price }}<br>
+        <span style="color:red;">Cancelled</span>
+    </div>
+</div>
+{% empty %}
+<p align="center">No cancelled bookings</p>
+{% endfor %}
+
+{% endblock %}

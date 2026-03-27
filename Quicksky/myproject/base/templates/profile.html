@@ -1,0 +1,19 @@
+{% extends "main.html" %}
+{% block content %}
+
+<div class="profile-container">
+    <h2>User Profile Details</h2>
+
+    <p><b>Username:</b> {{ request.user.username }}</p>
+    <p><b>Email:</b> {{ request.user.email }}</p>
+    <p><b>First Name:</b> {{ request.user.first_name }}</p>
+    <p><b>Last Name:</b> {{ request.user.last_name }}</p>
+
+    <div class="profile-actions">
+        <a href="{% url 'update_profile' %}" class="profile-btn">Update Profile</a>
+        <a href="{% url 'change_password' %}" class="profile-btn">Change Password</a>
+        <a href="{% url 'logout' %}" class="profile-btn logout-btn">Logout</a>
+    </div>
+</div>
+
+{% endblock %}
