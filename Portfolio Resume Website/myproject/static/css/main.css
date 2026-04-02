@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;700&display=swap');
+
+:root {
+    --accent: #00f2ff;
+    --accent-dark: #7000ff;
+    --bg: #030303;
+    --glass: rgba(255, 255, 255, 0.03);
+    --border: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+    color: #ffffff;
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+/* 8K Background Effects */
+.orb {
+    position: fixed;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0, 242, 255, 0.1) 0%, transparent 70%);
+    top: -200px; left: -200px;
+    z-index: -1;
+    filter: blur(100px);
+}
+.orb2 {
+    top: auto; bottom: -200px; left: auto; right: -200px;
+    background: radial-gradient(circle, rgba(112, 0, 255, 0.1) 0%, transparent 70%);
+}
+
+.main-wrapper {
+    width: 90%;
+    max-width: 1400px;
+    padding: 40px 0;
+}
+
+.glass-nav {
+    margin-bottom: 30px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.logo { font-weight: bold; font-size: 1.5rem; letter-spacing: 2px; text-transform: uppercase; }
+.logo span { color: var(--accent); }
+
+/* Custom Layout System (Overrides Bootstrap collision) */
+.grid-layout {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+.content-area {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+/* Glass Card Style */
+.glass-card {
+    background: var(--glass);
+    backdrop-filter: blur(25px);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 35px;
+    transition: 0.5s;
+    position: relative;
+    overflow: hidden;
+}
+
+.glass-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+}
+
+/* Profile Specifics */
+.profile-section { text-align: center; }
+
+.img-box img {
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    border: 5px solid var(--accent);
+    box-shadow: 0 0 30px var(--accent);
+    margin-bottom: 25px;
+    object-fit: cover;
+}
+
+.neon-text {
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+    color: #fff;
+    text-shadow: 0 0 10px var(--accent);
+}
+
+.profile-section p { font-size: 0.9rem; color: rgba(255,255,255,0.7); line-height: 1.6; }
+
+.social-grid {
+    display: flex; justify-content: center; gap: 15px; margin-top: 25px;
+}
+
+.icon {
+    width: 35px; filter: invert(1); transition: 0.3s;
+}
+.icon:hover { transform: translateY(-5px) scale(1.2); filter: invert(1) drop-shadow(0 0 8px var(--accent)); }
+
+/* Content Styling (Perfect Visibility) */
+h3, h4 {
+    color: var(--accent);
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+p {
+    line-height: 1.8;
+    color: rgba(255,255,255,0.85); /* High readable white text */
+    font-size: 0.95rem;
+}
+
+strong { color: #fff; font-weight: bold; text-shadow: 0 0 5px rgba(255,255,255,0.2); }
+
+/* Skill Tags */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.tags span {
+    padding: 6px 16px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50px;
+    font-size: 0.8rem;
+    color: var(--accent);
+    border: 1px solid var(--border);
+    font-weight: bold;
+}
+
+/* Experience List */
+.neon-list { list-style: none; margin-top: 10px; }
+.neon-list li {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    display: flex; gap: 10px; align-items: start;
+}
+
+/* Mobile Responsive */
+@media (max-width: 1000px) {
+    .grid-layout { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .main-wrapper { width: 95%; padding: 20px 0; }
+}
